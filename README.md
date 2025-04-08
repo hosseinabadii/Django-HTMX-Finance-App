@@ -31,7 +31,7 @@ A personal finance tracker built with [**Django**](https://www.djangoproject.com
 
 To set up the app, follow these steps:
 
-1. Clone the repository: `git clone [repository-url]` and
+1. Clone the repository: `git clone [repository-url]`
 2. Navigate to the project root directory.
 3. Create a virtual environment:
 	* On Windows: `python -m venv venv`
@@ -69,3 +69,5 @@ Contributions are welcome! If you'd like to contribute to the app, please fork t
 ## 📝 License
 
 This app is licensed under the MIT [License](./LICENSE).
+
+**Note:** This project is based on a YouTube tutorial by **BugBytes**, which can be found at [here](https://www.youtube.com/watch?v=6OlILeP9GKg&list=PL-2EBeDYMIbSBjHGYJYl1WLUT-tbCLHOb).
