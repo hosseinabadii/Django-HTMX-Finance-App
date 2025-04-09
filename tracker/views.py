@@ -5,6 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_http_methods
 from django_htmx.http import retarget
+from render_block import render_block_to_string
 from tablib import Dataset
 
 from tracker.charting import plot_category_pie_chart, plot_income_expenses_bar_chart
@@ -38,11 +39,11 @@ def transactions_list(request: HttpRequest):
 
         # time.sleep(0.5)
         context = {"transactions_page": paginator.page(page)}
-        return render(
-            request,
-            "tracker/partials/transactions-container.html#transaction_list",
-            context,
+        html = render_block_to_string(
+            "tracker/partials/transactions-container.html", "transaction_list", context
         )
+        return HttpResponse(html)
+
     total_income = transaction_filter.qs.get_total_income()
     total_expenses = transaction_filter.qs.get_total_expenses()
 

@@ -1,4 +1,3 @@
-{% load partials %}
 {% load widget_tweaks %}
 {% load humanize %}
 
@@ -71,7 +70,7 @@
             </thead>
 
             <tbody>
-                {% partialdef transaction_list inline %}
+                {% block transaction_list %}
                     {% for transaction in transactions_page %}
                         {% if forloop.last and transactions_page.has_next %}
                         <tr hx-get="{% url 'transactions-list' %}?page={{ transactions_page.next_page_number }}"
@@ -107,7 +106,7 @@
                             </td>
                         </tr>
                     {% endfor %}
-                {% endpartialdef %}
+                {% endblock %}
             </tbody>
         </table>
         <div class="text-center">
