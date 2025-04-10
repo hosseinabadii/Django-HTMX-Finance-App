@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_http_methods
-from django_htmx.http import retarget
+from django_htmx.http import HttpResponseClientRedirect, retarget
 from render_block import render_block_to_string
 from tablib import Dataset
 
@@ -70,12 +70,10 @@ def create_transaction(request: HttpRequest):
             transaction.save()
             context = {"message": "Transaction was added successfully!"}
             return render(request, "tracker/partials/transaction-success.html", context)
-        else:
-            context = {"form": form}
-            response = render(
-                request, "tracker/partials/create-transaction.html", context
-            )
-            return retarget(response, "#transaction-block")
+        context = {"form": form}
+        response = render(request, "tracker/partials/create-transaction.html", context)
+        return retarget(response, "#transaction-block")
+
     context = {"form": TransactionForm()}
     return render(request, "tracker/partials/create-transaction.html", context)
 
@@ -134,7 +132,8 @@ def transactions_charts(request: HttpRequest):
 @login_required
 def transactions_export(request: HttpRequest):
     if request.htmx:
-        return HttpResponse(headers={"HX-Redirect": request.get_full_path()})
+        # return HttpResponse(headers={"HX-Redirect": request.get_full_path()})
+        return HttpResponseClientRedirect(request.get_full_path())
 
     transaction_filter = TransactionFilter(
         data=request.GET,
