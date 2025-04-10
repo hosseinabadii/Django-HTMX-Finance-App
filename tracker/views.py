@@ -38,7 +38,11 @@ def transactions_list(request: HttpRequest):
 
         # time.sleep(0.5)
         context = {"transactions_page": paginator.page(page)}
-        return render(request, "tracker/partials/transactions-container.html", context)
+        return render(
+            request,
+            "tracker/partials/transactions-container.html#transaction-list",
+            context,
+        )
 
     total_income = transaction_filter.qs.get_total_income()
     total_expenses = transaction_filter.qs.get_total_expenses()
@@ -96,10 +100,9 @@ def update_transaction(request: HttpRequest, pk: int):
 def delete_transaction(request: HttpRequest, pk: int):
     transaction = get_object_or_404(Transaction, pk=pk, user=request.user)
     transaction.delete()
-    context = {
-        "message": f"Transaction of ${transaction.amount} on {transaction.date} was deleted successfully!"
-    }
-    return render(request, "tracker/partials/transaction-success.html", context)
+    response = HttpResponse(status=204)
+    response["HX-Trigger"] = "delete-transaction"
+    return response
 
 
 @login_required
