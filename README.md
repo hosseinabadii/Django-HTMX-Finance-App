@@ -24,7 +24,7 @@ A personal finance tracker built with [**Django**](https://www.djangoproject.com
 * **Import/Export**: Django Import Export
 * **Graphs/Plots**: Plotly
 * **Testing**: Pytest Django
-* **Templates**: Django Render Block and Django Widget Tweaks
+* **Templates**: Django Widget Tweaks
 
 
 ## 📦 Setup
