@@ -100,9 +100,7 @@ def update_transaction(request: HttpRequest, pk: int):
 def delete_transaction(request: HttpRequest, pk: int):
     transaction = get_object_or_404(Transaction, pk=pk, user=request.user)
     transaction.delete()
-    response = HttpResponse(status=204)
-    response["HX-Trigger"] = "delete-transaction"
-    return response
+    return HttpResponse("")
 
 
 @login_required
